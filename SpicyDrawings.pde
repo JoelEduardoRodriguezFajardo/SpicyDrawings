@@ -70,7 +70,7 @@ void setup() {
   redbutton.resize(50, 50);
   exit.resize(55, 55);
   Spicy.resize(170, 133);
-  arrows.resize(50, 50);
+  arrows.resize(int(width * 0.032), int(height * 0.0503));
 }
 
 void draw() {
@@ -140,7 +140,7 @@ void draw() {
   sliders();
 
   image(exit, width - 20, 20);
-  image(Spicy, width * 0.951, height * 0.244);
+  image(Spicy, width - 85, controlHeight - 67);
 
   fill(255);
   strokeWeight(1.5);
@@ -155,8 +155,8 @@ void draw() {
   text("Draw:", width * 0.630, height * 0.094);
   fontCalculator("Clear", width * 0.07, buttonHeight);
   
-  fontCalculator(drawingIdeas[currentDrawingIdea], 183, 85);
-  text(drawingIdeas[currentDrawingIdea], 1197, 228);
+  fontCalculator(drawingIdeas[currentDrawingIdea], width * 0.095, height * 0.079);
+  text(drawingIdeas[currentDrawingIdea], width * 0.623, height * 0.211);
 }
 
 void mousePressed() {
