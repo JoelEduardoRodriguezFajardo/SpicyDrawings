@@ -16,14 +16,19 @@ PImage redbutton;
 PImage ThickLine;
 PImage brightbg;
 PImage exit;
+PImage Spicy;
+PImage arrows;
 String title = "Quit";
 PFont titleFont;
 
 boolean imageDisplay = false;
 boolean pressed;
 
+int currentDrawingIdea = 0;
+String[] drawingIdeas = {"Horse", "Car", "Cat", "Pizza", "Penguin", "Flower", "Burger", "Tree"};
+
 void setup() {
-  
+
   fullScreen();
   background(255);
   rectMode(CENTER);
@@ -54,6 +59,8 @@ void setup() {
   ThickLine = loadImage("ThickLine.png");
   brightbg = loadImage("brightbg.png");
   exit = loadImage("exit.png");
+  Spicy = loadImage("Spicy.PNG");
+  arrows = loadImage("arrows.png");
 
   controlHeight = 2 * lineY + lineLength;
 
@@ -62,6 +69,8 @@ void setup() {
   greenbutton.resize(50, 50);
   redbutton.resize(50, 50);
   exit.resize(55, 55);
+  Spicy.resize(170, 133);
+  arrows.resize(50, 50);
 }
 
 void draw() {
@@ -129,21 +138,41 @@ void draw() {
 
   drawControls();
   sliders();
+
+  image(exit, width - 20, 20);
+  image(Spicy, width * 0.951, height * 0.244);
+
+  fill(255);
+  strokeWeight(1.5);
+  stroke(0);
+  rect(width * 0.672, height * 0.162, width * 0.104, height * 0.222, 7, 1, 7, 7); //x, y, width, height
+  line(width * 0.620, height * 0.102, width * 0.724, height * 0.102);
+  line(width * 0.700, height * 0.101, width * 0.700, height * 0.051);
+  fill(#BFB5B5);
+  rect(width * 0.708, height * 0.077, width * 0.032, height * 0.0503);
+  image(arrows, width * 0.708, height * 0.076);
+  fill(0);
+  text("Draw:", width * 0.630, height * 0.094);
+  fontCalculator("Clear", width * 0.07, buttonHeight);
   
-  image(exit, 1900, 20);
-  
+  fontCalculator(drawingIdeas[currentDrawingIdea], 183, 85);
+  text(drawingIdeas[currentDrawingIdea], 1197, 228);
 }
+
 void mousePressed() {
-  
-  if ((mouseX > 1880 && mouseX < 1920) && (mouseY > 0 && mouseY < 35)){
-  exit();
+
+  if ((mouseX > width - 40) && (mouseY < 40)) {
+    exit();
   }
-  
-  if ((mouseX > 0 && mouseX < width) && (mouseY > controlHeight && mouseY < 1079)) {
+
+  if (mouseY > controlHeight && mouseY < height) {
     effect[0].play();
     println("Playing song " + 0 + ".");
   }
-    println("mouseX = " + str(mouseX) + "mouseY = " + str(mouseY));
+  if ((mouseX > width * 0.691 && mouseX < width * 0.724) && (mouseY > height * 0.051 && mouseY < height * 0.102)) {
+    currentDrawingIdea = int(random(drawingIdeas.length));
+  }  
+  println("mouseX = " + str(mouseX) + "mouseY = " + str(mouseY));
 }
 
 void mouseReleased() {
@@ -182,12 +211,12 @@ void drawControls() {
   image(brightbg, width / 2, controlHeight / 2, width, controlHeight);
 
   fill(red, green, blue);
-  ellipse(width * 0.78, controlHeight / 2, size, size); 
+  ellipse(width * 0.82, controlHeight / 2, size, size); 
 
   fill(#C4BEBE);
-  rect(width * 0.50, height * 0.085, width * 0.07, buttonHeight, 10);// Clear
+  rect(width * 0.50, height * 0.085, width * 0.07, buttonHeight, 10);// ClearShadow
   fill(255);
-  rect(width * 0.50, height * 0.08, width * 0.07, buttonHeight, 10);
+  rect(width * 0.50, height * 0.08, width * 0.07, buttonHeight, 10);// Button
 
   // Black & White Buttons
   fill (#C4BEBE);
@@ -200,8 +229,8 @@ void drawControls() {
   fill(0);
   rect(width * 0.50, height * 0.24, buttonWidth, buttonHeight, 10); //Height = .24
 
-  textSize (35);
-  text("Clear", width * 0.478, height * 0.09);
+  fontCalculator("Clear", buttonWidth * 0.8, buttonHeight * 0.8);
+  text("Clear", width * 0.4755, height * 0.0965);
 
   noStroke();
 }
