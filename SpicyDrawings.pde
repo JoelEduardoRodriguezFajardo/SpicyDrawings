@@ -1,4 +1,13 @@
+
+// SpicyDrawings
+// Made by Luke & Joel
+// Finished January 19, 2018
+
 import processing.sound.*;
+
+int totalEffects = 1;
+SoundFile[] effect = new SoundFile[totalEffects];
+
 float redLineX, redDotY; //variables for red slider
 float greenLineX, greenDotY; //variables for green slider
 float blueLineX, blueDotY; //variables for blue slider
@@ -7,17 +16,8 @@ float buttonWidth, buttonHeight; //variables for white, black and clear buttons
 float lineLength = 255, lineY, size, controlHeight;
 float red, green, blue; //variables for the colour values
 int sliderSize = 40; //size of the knob on sliders
-int totalEffects = 1;
-SoundFile[] effect = new SoundFile[totalEffects];
-PImage whitebutton;
-PImage bluebutton;
-PImage greenbutton;
-PImage redbutton;
-PImage ThickLine;
-PImage brightbg;
-PImage exit;
-PImage Spicy;
-PImage arrows;
+
+PImage whitebutton, bluebutton, greenbutton, redbutton, ThickLine, brightbg, exit, Spicy, arrows;
 String title = "Quit";
 PFont titleFont;
 
@@ -25,10 +25,9 @@ boolean imageDisplay = false;
 boolean pressed;
 
 int currentDrawingIdea = 0;
-String[] drawingIdeas = {"Horse", "Car", "Cat", "Pizza", "Penguin", "Flower", "Burger", "Tree"};
+String[] drawingIdeas = {"Horse", "Car", "Cat", "Pizza", "Penguin", "Flower", "Burger", "Tree", "Beach", "Dog", "Cake"};
 
 void setup() {
-
   fullScreen();
   background(255);
   rectMode(CENTER);
@@ -74,7 +73,6 @@ void setup() {
 }
 
 void draw() {
-
   if (mousePressed) {
     if ((mouseX > redLineX - sliderSize / 2 && mouseX < redLineX + sliderSize / 2) && (mouseY > lineY && mouseY < lineY + lineLength)) {
       if (redDotY >= lineY && redDotY <= lineY + lineLength) {
@@ -138,29 +136,9 @@ void draw() {
 
   drawControls();
   sliders();
-
-  image(exit, width - 20, 20);
-  image(Spicy, width - 85, controlHeight - 67);
-
-  fill(255);
-  strokeWeight(1.5);
-  stroke(0);
-  rect(width * 0.672, height * 0.162, width * 0.104, height * 0.222, 7, 1, 7, 7); //x, y, width, height
-  line(width * 0.620, height * 0.102, width * 0.724, height * 0.102);
-  line(width * 0.700, height * 0.101, width * 0.700, height * 0.051);
-  fill(#BFB5B5);
-  rect(width * 0.708, height * 0.077, width * 0.032, height * 0.0503);
-  image(arrows, width * 0.708, height * 0.076);
-  fill(0);
-  text("Draw:", width * 0.630, height * 0.094);
-  fontCalculator("Clear", width * 0.07, buttonHeight);
-  
-  fontCalculator(drawingIdeas[currentDrawingIdea], width * 0.095, height * 0.079);
-  text(drawingIdeas[currentDrawingIdea], width * 0.623, height * 0.211);
 }
 
 void mousePressed() {
-
   if ((mouseX > width - 40) && (mouseY < 40)) {
     exit();
   }
@@ -169,10 +147,10 @@ void mousePressed() {
     effect[0].play();
     println("Playing song " + 0 + ".");
   }
+  
   if ((mouseX > width * 0.691 && mouseX < width * 0.724) && (mouseY > height * 0.051 && mouseY < height * 0.102)) {
     currentDrawingIdea = int(random(drawingIdeas.length));
-  }  
-  println("mouseX = " + str(mouseX) + "mouseY = " + str(mouseY));
+  }
 }
 
 void mouseReleased() {
@@ -230,7 +208,26 @@ void drawControls() {
   rect(width * 0.50, height * 0.24, buttonWidth, buttonHeight, 10); //Height = .24
 
   fontCalculator("Clear", buttonWidth * 0.8, buttonHeight * 0.8);
-  text("Clear", width * 0.4755, height * 0.0965);
+  text("Clear", width * 0.47, height * 0.092);
 
   noStroke();
+  
+  image(exit, width - 20, 20);
+  image(Spicy, width - 85, controlHeight - 67);
+
+  fill(255);
+  strokeWeight(1.5);
+  stroke(0);
+  rect(width * 0.672, height * 0.162, width * 0.104, height * 0.222, 7, 1, 7, 7); //x, y, width, height
+  line(width * 0.620, height * 0.102, width * 0.724, height * 0.102);
+  line(width * 0.700, height * 0.101, width * 0.700, height * 0.051);
+  fill(#BFB5B5);
+  rect(width * 0.708, height * 0.077, width * 0.032, height * 0.0503);
+  image(arrows, width * 0.708, height * 0.076);
+  fill(0);
+  fontCalculator("Draw:", width * 0.061, height * 0.042);  
+  text("Draw:", width * 0.623, height * 0.094);                                                          
+  
+  fontCalculator(drawingIdeas[currentDrawingIdea], width * 0.095, height * 0.079);
+  text(drawingIdeas[currentDrawingIdea], width * 0.623, height * 0.211);
 }
